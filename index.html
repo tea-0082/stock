@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="settings.css">
 </head>
 <body>
   <div class="app-shell">
@@ -25,6 +26,7 @@
         <a href="#history" class="nav-link" data-view="history"><span class="nav-icon">⌁</span>歷史分析</a>
         <a href="#news" class="nav-link" data-view="news"><span class="nav-icon">▤</span>新聞情緒</a>
         <a href="#forecast" class="nav-link" data-view="forecast"><span class="nav-icon">✳</span>模型實驗室</a>
+        <a href="#settings" class="nav-link" data-view="settings"><span class="nav-icon">⚙</span>資料服務設定</a>
       </nav>
       <div class="sidebar-bottom">
         <div class="demo-note"><span class="pulse-dot"></span><div><b>互動示範模式</b><small>行情與分析為模擬資料</small></div></div>
@@ -50,19 +52,19 @@
             <button class="outline-button" id="refreshButton"><span class="refresh-icon">↻</span> 更新示範資料</button>
           </div>
 
-          <div class="notice-banner"><span class="notice-icon">i</span><div><b>互動示範</b><span>此頁目前使用合成行情、新聞與模型結果，不代表即時市場資訊或投資建議。</span></div><button class="notice-close" aria-label="關閉提示">×</button></div>
+          <div class="notice-banner"><span class="notice-icon">i</span><div><b id="overviewDataMode">資料狀態</b><span id="overviewDataMessage">連接後端後可查詢交易所收盤資料與新聞；未連線時使用示範資料。</span></div><button class="notice-close" aria-label="關閉提示">×</button></div>
 
           <div class="section-title-row"><div><h2>市場快照</h2><p>模擬指數與個股概況</p></div><span class="updated-label"><span class="pulse-dot"></span>示範資料</span></div>
           <div class="metric-grid">
-            <article class="metric-card"><div class="metric-top"><span>加權指數</span><span class="metric-icon indigo">▥</span></div><div class="metric-value">27,842.16</div><div class="metric-foot"><span class="positive">▲ 186.42 (0.67%)</span><span>TAIEX</span></div><div class="mini-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none"><path d="M0 25 C10 23 11 18 20 21S33 17 40 19 48 12 57 15 68 14 74 10 86 16 93 9 107 11 120 3"/></svg></div></article>
-            <article class="metric-card"><div class="metric-top"><span>上櫃指數</span><span class="metric-icon cyan">◌</span></div><div class="metric-value">263.48</div><div class="metric-foot"><span class="positive">▲ 1.82 (0.70%)</span><span>TPEx</span></div><div class="mini-chart cyan-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none"><path d="M0 22 C10 25 18 13 28 18S42 12 50 17 61 7 70 11 78 17 87 8 101 12 108 6 114 9 120 2"/></svg></div></article>
-            <article class="metric-card"><div class="metric-top"><span>上漲家數</span><span class="metric-icon green">↗</span></div><div class="metric-value">684 <small>/ 1,021</small></div><div class="metric-foot"><span class="muted">漲跌家數分布</span><span>上市櫃</span></div><div class="breadth-bar"><i style="width:67%"></i><i style="width:8%"></i><i style="width:25%"></i></div><div class="breadth-legend"><span><i class="dot green-dot"></i>上漲 67%</span><span><i class="dot gray-dot"></i>持平 8%</span><span><i class="dot red-dot"></i>下跌 25%</span></div></article>
-            <article class="metric-card"><div class="metric-top"><span>成交金額</span><span class="metric-icon amber">◷</span></div><div class="metric-value">4,286 <small>億</small></div><div class="metric-foot"><span class="positive">▲ 8.3% 較昨日</span><span>全市場</span></div><div class="volume-bars" aria-hidden="true"><i style="height:28%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:68%"></i><i style="height:51%"></i><i style="height:80%"></i><i style="height:62%"></i><i style="height:94%"></i><i style="height:72%"></i><i style="height:100%"></i><i style="height:80%"></i><i style="height:88%"></i></div></article>
+            <article class="metric-card"><div class="metric-top"><span>加權指數・示意</span><span class="metric-icon indigo">▥</span></div><div class="metric-value">27,842.16</div><div class="metric-foot"><span class="positive">▲ 186.42 (0.67%)</span><span>TAIEX</span></div><div class="mini-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none"><path d="M0 25 C10 23 11 18 20 21S33 17 40 19 48 12 57 15 68 14 74 10 86 16 93 9 107 11 120 3"/></svg></div></article>
+            <article class="metric-card"><div class="metric-top"><span>上櫃指數・示意</span><span class="metric-icon cyan">◌</span></div><div class="metric-value">263.48</div><div class="metric-foot"><span class="positive">▲ 1.82 (0.70%)</span><span>TPEx</span></div><div class="mini-chart cyan-chart"><svg viewBox="0 0 120 32" preserveAspectRatio="none"><path d="M0 22 C10 25 18 13 28 18S42 12 50 17 61 7 70 11 78 17 87 8 101 12 108 6 114 9 120 2"/></svg></div></article>
+            <article class="metric-card"><div class="metric-top"><span>上漲家數・示意</span><span class="metric-icon green">↗</span></div><div class="metric-value">684 <small>/ 1,021</small></div><div class="metric-foot"><span class="muted">漲跌家數分布</span><span>上市櫃</span></div><div class="breadth-bar"><i style="width:67%"></i><i style="width:8%"></i><i style="width:25%"></i></div><div class="breadth-legend"><span><i class="dot green-dot"></i>上漲 67%</span><span><i class="dot gray-dot"></i>持平 8%</span><span><i class="dot red-dot"></i>下跌 25%</span></div></article>
+            <article class="metric-card"><div class="metric-top"><span>成交金額・示意</span><span class="metric-icon amber">◷</span></div><div class="metric-value">4,286 <small>億</small></div><div class="metric-foot"><span class="positive">▲ 8.3% 較昨日</span><span>全市場</span></div><div class="volume-bars" aria-hidden="true"><i style="height:28%"></i><i style="height:45%"></i><i style="height:38%"></i><i style="height:68%"></i><i style="height:51%"></i><i style="height:80%"></i><i style="height:62%"></i><i style="height:94%"></i><i style="height:72%"></i><i style="height:100%"></i><i style="height:80%"></i><i style="height:88%"></i></div></article>
           </div>
 
           <div class="dashboard-grid">
-            <article class="panel market-panel"><div class="panel-heading"><div><h2>台積電 <span class="ticker">2330</span></h2><p>上市・半導體</p></div><button class="more-button" aria-label="更多選項">···</button></div><div class="stock-quote"><div><strong id="overviewPrice">1,485.00</strong><span class="positive">▲ 15.00 (1.02%)</span></div><span class="quote-time">收盤價 <i>·</i> 14:30</span></div><div class="chart-toolbar"><div class="chart-legend"><span><i></i>收盤價</span><span class="legend-average"><i></i>20 日均線</span></div><div class="period-tabs"><button class="period-button" data-period="1M">1M</button><button class="period-button active" data-period="3M">3M</button><button class="period-button" data-period="6M">6M</button><button class="period-button" data-period="1Y">1Y</button></div></div><div class="chart-wrap"><div class="chart-y-labels"><span>1,500</span><span>1,460</span><span>1,420</span><span>1,380</span><span>1,340</span></div><canvas id="priceChart" aria-label="台積電示範股價走勢圖"></canvas></div><div class="chart-x-labels"><span>08/10</span><span>08/29</span><span>09/17</span><span>10/06</span><span>10/25</span><span>11/06</span></div></article>
-            <article class="panel movers-panel"><div class="panel-heading"><div><h2>熱門觀察</h2><p>模擬漲跌幅排行</p></div><button class="text-button" data-go="stocks">查看個股 <span>→</span></button></div><div class="mover-list" id="moverList"></div></article>
+            <article class="panel market-panel"><div class="panel-heading"><div><h2><span id="overviewStockName">台積電</span> <span id="overviewStockSymbol" class="ticker">2330</span></h2><p id="overviewStockMarket">選取標的・每日收盤資料</p></div><button class="text-button" data-go="stocks">更換標的 →</button></div><div class="stock-quote"><div><strong id="overviewPrice">--</strong><span id="overviewChange" class="muted">連線資料中</span></div><span id="quoteTimestamp" class="quote-time">來源待確認</span></div><div class="chart-toolbar"><div class="chart-legend"><span><i></i>收盤價</span><span class="legend-average"><i></i>12 日均線</span></div><div class="period-tabs"><button class="period-button" data-period="1M">1M</button><button class="period-button active" data-period="3M">3M</button><button class="period-button" data-period="6M">6M</button><button class="period-button" data-period="1Y">1Y</button></div></div><div class="chart-wrap"><div class="chart-y-labels"><span>高</span><span>—</span><span>—</span><span>—</span><span>低</span></div><canvas id="priceChart" aria-label="個股歷史收盤走勢圖"></canvas></div><div id="quoteSource" class="chart-x-labels"><span>歷史行情來源</span><span>開啟資料服務即可載入</span></div></article>
+            <article class="panel movers-panel"><div class="panel-heading"><div><h2>喜愛股票觀察</h2><p>收盤報價摘要</p></div><button class="text-button" data-go="stocks">管理喜愛 <span>→</span></button></div><div class="mover-list" id="moverList"></div></article>
           </div>
 
           <div class="bottom-grid">
@@ -75,7 +77,8 @@
         <section class="view-section" id="view-stocks" data-title="個股查詢">
           <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span>市場資料</div><h1>個股查詢</h1><p>查找台灣上市櫃標的，檢視示範行情。</p></div></div>
           <div class="notice-banner"><span class="notice-icon">i</span><div><b>模擬行情</b><span>顯示的價格與漲跌均為介面示範，尚未連接即時報價服務。</span></div><button class="notice-close" aria-label="關閉提示">×</button></div>
-          <article class="panel search-panel"><label for="stockSearch">搜尋股票名稱或代號</label><div class="search-box"><span>⌕</span><input id="stockSearch" type="search" placeholder="例如：台積電、2330" autocomplete="off"><kbd>/</kbd></div><div class="search-hint">可搜尋內建股票清單</div><div class="search-results" id="searchResults"></div></article>
+          <article class="panel search-panel"><label for="stockSearch">搜尋股票名稱或代號</label><div class="search-box"><span>⌕</span><input id="stockSearch" type="search" placeholder="例如：台積電、2330" autocomplete="off"><kbd>/</kbd></div><div class="search-hint">搜尋台灣股票清單；可加入最多 10 檔喜愛股票</div><div class="search-results" id="searchResults"></div></article>
+          <article class="panel favorites-manager"><div class="panel-heading"><div><h2>我的喜愛股票 <span id="favoriteCount" class="favorite-count">0 / 10</span></h2><p>只保存在此瀏覽器，不會上傳帳號資料。</p></div><button class="text-button" id="clearFavorites">清空清單</button></div><div id="favoriteManagerList" class="favorite-manager-list"></div><div id="favoriteEmpty" class="favorites-empty">搜尋股票後按「加入喜愛」，建立您的個人追蹤清單。</div></article>
           <div class="section-title-row"><div><h2>熱門標的</h2><p>點選查看模擬報價</p></div><span class="updated-label">6 個標的</span></div><div class="stock-cards" id="stockCards"></div>
           <footer class="page-footer"><span>價格資料為示範值，不是即時行情。</span><span>請以交易所與券商資料為準。</span></footer>
         </section>
@@ -102,9 +105,18 @@
           <div class="forecast-grid"><article class="panel forecast-result"><div class="panel-heading"><div><h2>示範預測結果</h2><p>台積電・合成數列</p></div><span class="result-tag">非即時</span></div><div class="forecast-price"><span>模型輸出</span><b>NT$ 1,492.50</b><em class="positive">+0.51% <small>示意</small></em></div><div class="forecast-chart-wrap"><canvas id="forecastChart" aria-label="預測示範圖"></canvas></div><div class="forecast-legend"><span><i class="actual-line"></i>歷史示意</span><span><i class="predicted-line"></i>預測示意</span></div></article><article class="panel model-metrics"><div class="panel-heading"><div><h2>評估方式</h2><p>正式模型應使用未見資料</p></div></div><div class="metric-explain"><span class="metric-symbol">01</span><div><b>時間順序切分</b><p>較早資料訓練，較晚資料測試，避免未來資訊洩漏。</p></div></div><div class="metric-explain"><span class="metric-symbol">02</span><div><b>比較簡單基準</b><p>與「明日價格等於今日價格」等基準方法比較。</p></div></div><div class="metric-explain"><span class="metric-symbol">03</span><div><b>報告預測誤差</b><p>查看 MAE、RMSE 與不同期間的表現。</p></div></div></article></div>
           <article class="panel model-note"><span class="note-symbol">✳</span><div><b>先驗證，再解讀</b><p>股價序列容易受市場變化影響。評估模型時應以時間切分測試集、避免資料洩漏，並呈現預測誤差與基準模型表現。</p></div></article>
         </section>
+
+        <section class="view-section" id="view-settings" data-title="資料服務設定">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span>連線設定</div><h1>資料服務設定</h1><p>設定後端網址與個人存取碼。Gemini 金鑰只放在後端環境變數。</p></div></div>
+          <div class="notice-banner"><span class="notice-icon">i</span><div><b>不要在這裡輸入 Gemini API 金鑰</b><span>Gemini 金鑰由 Netlify Functions 讀取；請在 Netlify 專案環境變數設定 GEMINI_API_KEY。</span></div><button class="notice-close" aria-label="關閉提示">×</button></div>
+          <article class="panel settings-panel"><div class="settings-field"><label for="apiBaseInput">後端服務網址</label><input id="apiBaseInput" type="url" placeholder="https://your-site.netlify.app"><small>GitHub Pages 網站需填入 Netlify 網址；Netlify 部署版可留空使用同站 API。</small></div><div class="settings-field"><label for="accessCodeInput">API 存取碼 <span>（若部署者有設定）</span></label><div class="password-field"><input id="accessCodeInput" type="password" autocomplete="off" placeholder="輸入部署者提供的存取碼"><button id="showAccessCode" type="button" aria-label="顯示或隱藏存取碼">顯示</button></div><small>存取碼只存在目前瀏覽器工作階段；它不是 Gemini API 金鑰。</small></div><div class="settings-actions"><button class="primary-button" id="saveApiSettings">儲存並測試連線</button><span id="apiStatus" class="api-status">尚未連線</span></div></article>
+          <article class="panel settings-info"><div class="panel-heading"><div><h2>後端狀態</h2><p>連線成功後會顯示可用資料來源</p></div></div><div id="apiStatusDetails" class="settings-status-details">尚未連線。</div><div class="key-setup"><b>Gemini 金鑰安全設定</b><ol><li>在 Google AI Studio 建立 Gemini API Key。</li><li>在 Netlify 專案的 Environment variables 新增 <code>GEMINI_API_KEY</code>，scope 選 Functions。</li><li>重新部署後，新聞分析便會透過後端呼叫 Gemini；金鑰不會傳到瀏覽器。</li></ol></div></article>
+          <footer class="page-footer"><span>每次查詢最多 10 檔；喜愛清單只存於本機瀏覽器。</span><span>行情為最新可用收盤資料，並非盤中即時報價。</span></footer>
+        </section>
       </div>
     </main>
   </div>
+  <script src="backend-config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
